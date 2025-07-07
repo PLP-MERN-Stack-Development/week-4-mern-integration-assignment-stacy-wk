@@ -1,5 +1,3 @@
-// Post.js - Mongoose model for blog posts
-
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema(
@@ -66,7 +64,7 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Create slug from title before saving
+
 PostSchema.pre('save', function (next) {
   if (!this.isModified('title')) {
     return next();
@@ -80,7 +78,7 @@ PostSchema.pre('save', function (next) {
   next();
 });
 
-// Virtual for post URL
+
 PostSchema.virtual('url').get(function () {
   return `/posts/${this.slug}`;
 });
@@ -91,7 +89,7 @@ PostSchema.methods.addComment = function (userId, content) {
   return this.save();
 };
 
-// Method to increment view count
+// Method to increase view count
 PostSchema.methods.incrementViewCount = function () {
   this.viewCount += 1;
   return this.save();
